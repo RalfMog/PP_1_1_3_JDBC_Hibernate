@@ -6,28 +6,27 @@ import jm.task.core.jdbc.model.User;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-    UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
     public void createUsersTable() {
-        userDaoJDBC.createUsersTable();
+        new UserDaoJDBCImpl().createUsersTable();
     }
 
     public void dropUsersTable() {
-        userDaoJDBC.dropUsersTable();
+        new UserDaoJDBCImpl().dropUsersTable();
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        userDaoJDBC.saveUser(name, lastName, age);
+        new UserDaoJDBCImpl().saveUser(name, lastName, age);
     }
 
     public void removeUserById(long id) {
-        userDaoJDBC.removeUserById(id);
+        new UserDaoJDBCImpl().removeUserById(id);
     }
 
     public List<User> getAllUsers() {
-        return userDaoJDBC.getAllUsers();
+        return new UserDaoJDBCImpl().getAllUsers();
     }
 
     public void cleanUsersTable() {
-        userDaoJDBC.cleanUsersTable();
+        new UserDaoJDBCImpl().cleanUsersTable();
     }
 }
