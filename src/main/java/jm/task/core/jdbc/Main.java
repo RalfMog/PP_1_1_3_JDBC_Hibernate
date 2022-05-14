@@ -5,12 +5,13 @@ import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         // реализуйте алгоритм здесь
         UserDao userDao = new UserDaoJDBCImpl();
         List<User> userList = new ArrayList<>();
@@ -24,6 +25,8 @@ public class Main {
         }
 
         System.out.printf(userDao.getAllUsers().toString());
+        Util.getConnection().close();
+
 
 //        userDao.saveUser()
 //        userDao.createUsersTable();
