@@ -11,15 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private final Connection connection = Util.getInstance().getConnection();
-    private PreparedStatement statement;
 
     public UserDaoJDBCImpl() {
 
     }
 
     public void createUsersTable() {
+        Connection connection = null;
+        PreparedStatement statement = null;
         try {
+            connection = Util.getInstance().getConnection();
             statement = connection.prepareStatement("""
                     CREATE TABLE IF NOT EXISTS USER (ID bigint PRIMARY KEY AUTO_INCREMENT NOT NULL,
                     NAME varchar(64) NOT NULL,
@@ -34,7 +35,10 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void dropUsersTable() {
+        Connection connection = null;
+        PreparedStatement statement = null;
         try {
+            connection = Util.getInstance().getConnection();
             statement = connection.prepareStatement("DROP TABLE IF EXISTS USER");
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -45,7 +49,10 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
+        Connection connection = null;
+        PreparedStatement statement = null;
         try {
+            connection = Util.getInstance().getConnection();
             statement = connection.prepareStatement("INSERT INTO USER (NAME, LASTNAME, AGE) VALUES(?, ?, ?)");
             statement.setString(1, name);
             statement.setString(2, lastName);
@@ -59,7 +66,10 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void removeUserById(long id) {
+        Connection connection = null;
+        PreparedStatement statement = null;
         try {
+            connection = Util.getInstance().getConnection();
             statement = connection.prepareStatement("DELETE FROM USER WHERE ID=?");
             statement.setLong(1, id);
             statement.executeUpdate();
@@ -72,8 +82,11 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public List<User> getAllUsers() {
         List<User> resultList = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
         ResultSet rs = null;
         try {
+            connection = Util.getInstance().getConnection();
             statement = connection.prepareStatement("SELECT ID, NAME, LASTNAME, AGE FROM USER");
             rs = statement.executeQuery();
             while (rs.next()) {
@@ -93,7 +106,10 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void cleanUsersTable() {
+        Connection connection = null;
+        PreparedStatement statement = null;
         try {
+            connection = Util.getInstance().getConnection();
             statement = connection.prepareStatement("TRUNCATE TABLE USER");
             statement.executeUpdate();
         } catch (SQLException e) {
